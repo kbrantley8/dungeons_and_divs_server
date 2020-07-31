@@ -118,4 +118,34 @@ router.delete('/deleteUser', async (req, res) => {
     }
 })
 
+router.get('/loginUser', async (req, res) => {
+    const { user_id, email, password } = req.query;
+
+    try {
+        const user = await User.findOne({$or:[ { '_id': user_id}, { 'email': email } ] });
+
+        if (!user) {
+            return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        }
+
+        if (password == user.password) {
+            res.status(200).send({
+                id: user._id,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email,
+                password: user.password,
+                account_type: user.account_type,
+                party_id: user.party_id,
+                bio: user.bio
+            })
+        } else {
+            res.status(400).send({ error: "Passwords do not match! Please try again!" })
+        }
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 module.exports = router;
