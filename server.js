@@ -26,8 +26,18 @@ app.use(partyRoutes)
 app.use(messageRoutes)
 app.use(characterSheetRoutes)
 
-const credentials = require('./credentials/mongo-auth.json');
-var connectionString = 'mongodb+srv://'+ credentials.username + ':' + credentials.password + '@cluster0.mqn3k.mongodb.net/Dungeons_and_Divs?retryWrites=true&w=majority';
+var mongo_username = process.env.MONGO_USERNAME;
+var mongo_password = process.env.MONGO_PASSWORD;
+
+try {
+    const credentials = require('./credentials/mongo-auth.json');
+    mongo_username = credentials.username;
+    mongo_password = credentials.password;
+} catch (e) {
+    console.log(e)
+}
+
+var connectionString = 'mongodb+srv://'+ mongo_username + ':' + mongo_password + '@cluster0.mqn3k.mongodb.net/Dungeons_and_Divs?retryWrites=true&w=majority';
 
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
