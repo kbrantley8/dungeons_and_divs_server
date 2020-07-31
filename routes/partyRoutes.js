@@ -87,10 +87,10 @@ router.post('/editParty', async (req, res) => {
 
 router.delete('/deleteParty', async (req, res) => {
 
-    const { party_id } = req.body;
+    const { party_id, party_name } = req.body;
 
     try {
-        var party = await Party.deleteOne({ '_id': party_id }, async function (err, doc) { 
+        var party = await Party.deleteOne({$or:[ { '_id': party_id }, { 'name': party_name } ] }, async function (err, doc) { 
             if (!doc.deletedCount) {
                 return res.status(404).send({error: "Could not find the specified party. Please try again."})
             } else {
