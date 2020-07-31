@@ -1,11 +1,14 @@
-// require('./models/User')
-// require('./models/Task')
-// require('./minutely-updates')
+require('./models/User')
+require('./models/Party')
+require('./models/Message')
+require('./models/CharacterSheet')
 
 const express = require('express')
 const mongoose = require('mongoose')
-// const userRoutes = require('./routes/userRoutes')
-// const taskRoutes = require('./routes/taskRoutes')
+const userRoutes = require('./routes/userRoutes')
+const partyRoutes = require('./routes/partyRoutes')
+const messageRoutes = require('./routes/messageRoutes')
+const characterSheetRoutes = require('./routes/characterSheetRoutes')
 const bodyParser = require('body-parser')
 
 const app = express()
@@ -18,8 +21,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(userRoutes)
-// app.use(taskRoutes)
+app.use(userRoutes)
+app.use(partyRoutes)
+app.use(messageRoutes)
+app.use(characterSheetRoutes)
 
 const credentials = require('./credentials/mongo-auth.json');
 var connectionString = 'mongodb+srv://'+ credentials.username + ':' + credentials.password + '@cluster0.mqn3k.mongodb.net/Dungeons_and_Divs?retryWrites=true&w=majority';
@@ -39,6 +44,6 @@ mongoose.connection.on('error', (err) => {
     console.log('Error connecting to mongo', err)
 })
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Listening on port ${process.env.PORT}`)
+app.listen(3000, () => {
+    console.log(`Listening on port 3000`)
 })
