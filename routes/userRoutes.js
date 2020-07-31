@@ -102,10 +102,10 @@ router.post('/editUser', async (req, res) => {
 
 router.delete('/deleteUser', async (req, res) => {
 
-    const { email } = req.body;
+    const { email, user_id } = req.body;
 
     try {
-        var user = await User.deleteOne({ 'email': email }, async function (err, doc) { 
+        var user = await User.deleteOne({$or:[ { '_id': user_id}, { 'email': email } ] }, async function (err, doc) { 
             if (!doc.deletedCount) {
                 return res.status(404).send({error: "Could not find the specified user. Please try again."})
             } else {
