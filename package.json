@@ -1,0 +1,24 @@
+{
+  "name": "dungeons_and_divs_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbrantley8/dungeons_and_divs_server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kbrantley8/dungeons_and_divs_server/issues"
+  },
+  "homepage": "https://github.com/kbrantley8/dungeons_and_divs_server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.9.26"
+  }
+}
