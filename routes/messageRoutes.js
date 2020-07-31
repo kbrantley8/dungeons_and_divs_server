@@ -32,8 +32,7 @@ router.post('/createMessage', async (req, res) => {
     const { text, user_id, party_id, date_created } = req.body;
 
     try {
-        var dat = new Date();
-        const message = new Message({ text, user_id, party_id, 'date_created': dat });
+        const message = new Message({ text, user_id, party_id, date_created });
 
         await message.save()
 
