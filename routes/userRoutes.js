@@ -56,7 +56,11 @@ router.post('/createUser', async (req, res) => {
     try {
         const user = new User({first_name, last_name, email, password, account_type, party_id, bio});
 
-        await user.save()
+        await user.save(function(err) {
+            if ( err && err.code === 11000 ) {
+                return res.status(409).send({error: "Email already exists. Try logging in!"})
+            }
+        })
 
         res.status(200).send({
             id: user._id,
