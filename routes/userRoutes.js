@@ -56,25 +56,17 @@ router.post('/createUser', async (req, res) => {
     try {
         const user = new User({first_name, last_name, email, password, account_type, party_id, bio});
 
-        await user.save(function(err) {
-            if (err) {
-                if ( err.code === 11000 ) {
-                    return res.status(407).send({error: "Email already exists. Try logging in!"}) 
-                } else {
-                    return res.status(400).send({error: "Creating a new user failed"})
-                }
-            }
+        await user.save()
 
-            res.status(200).send({
-                id: user._id,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                email: user.email,
-                password: user.password,
-                account_type: user.account_type,
-                party_id: user.party_id,
-                bio: user.bio
-            })
+        res.status(200).send({
+            id: user._id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            password: user.password,
+            account_type: user.account_type,
+            party_id: user.party_id,
+            bio: user.bio
         })
 
     } catch (e) {
