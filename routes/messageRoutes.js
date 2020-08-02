@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Message = mongoose.model('Message')
+const User = mongoose.model('User')
 
 const router = express.Router()
 
@@ -20,6 +21,13 @@ router.get('/getPartyMessages', async (req, res) => {
                 date_created: val.date_created
             })
         })
+
+        for (var message of arr) {
+            var user = await User.findOne({ '_id': message.user_id });
+            message.sender_first_name = user.first_name;
+            message.sender_last_name = user.last_name;
+            message.sender_email = user.email;
+        }
 
         res.status(200).send(arr)
 
