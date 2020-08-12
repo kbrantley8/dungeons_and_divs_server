@@ -60,7 +60,7 @@ router.get('/getUsersCharacterSheet', async (req, res) => {
             return res.status(404).send({error: "Could not find the specified user. Please try again."})
         }
 
-        var charSheet = await CharacterSheet.find({ 'user_id': user._id }).sort({ date_created: 1 });
+        var charSheet = await CharacterSheet.find({ 'user_id': user._id }).sort({ date_created: -1 });
 
         res.status(200).send(charSheet)
 
