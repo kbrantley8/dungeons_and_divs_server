@@ -33,8 +33,9 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     party_id: {
-        type: String,
-        required: false
+        type: Map,
+        required: false,
+        default: {}
     },
     bio: {
         type: String,
